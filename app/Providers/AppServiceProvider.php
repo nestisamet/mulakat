@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repository\AccountEloquent;
+use App\Repository\Contracts\AccountRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(AccountRepository::class, AccountEloquent::class);
     }
 }
