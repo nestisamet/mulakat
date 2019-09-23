@@ -4,54 +4,36 @@ namespace App\Http\Controllers\Account;
 
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Validation\Account\SignupValidation;
+use App\Http\Validation\RequestDataValidation;
 use App\Repository\Contracts\AccountRepository;
+use App\Repository\Contracts\StudentRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Validator;
 
 class SignupController extends Controller
 {
+    use RequestDataValidation, SignupValidation;
+
     /**
      * @var AccountRepository
      */
     private $storage;
 
     /**
-     * @var array validasyon kurallari
+     * @var StudentRepository
      */
-    private $rules = [
-        'account_code' => ['required', 'digits:10'],
-        'name' => ['required', 'string', 'max:20'],
-        'surname' => ['required', 'string', 'max:50'],
-        'email' => ['required', 'string', 'email', 'max:100', 'unique:tblAccount'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
-        'mobile' => ['digits:10']
-    ];
+    private $storageStudent;
 
     /**
      * SignupController constructor.
      * @param AccountRepository $storage
+     * @param StudentRepository $storageStudent
      */
-    public function __construct(AccountRepository $storage)
+    public function __construct(AccountRepository $storage, StudentRepository $storageStudent)
     {
         $this->storage = $storage;
-    }
-
-    /**
-     * @param array $data
-     * @return array|void
-     * @throws ApiException
-     */
-    protected function validateRequest(& $data)
-    {
-        $validator = Validator::make($data, $this->rules);
-        if ($validator->failed()) {
-            throw new ApiException([
-                'success' => false,
-                'message' => $validator->messages()->toArray(),
-            ], 406);
-        }
-        $data['password'] = Hash::make($data['password']);
+        $this->storageStudent = $storageStudent;
     }
 
     /**
@@ -60,10 +42,28 @@ class SignupController extends Controller
      */
     protected function create(Request $request)
     {
+        /**
+         * validasyon kurallari
+         */
+        $this->rules = [
+            'account_code' => ['required', 'digits:6'],
+            'name' => ['required', 'string', 'max:20'],
+            'surname' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:tblAccount'],
+            'password' => ['required', 'string', 'min:8'], // parola konfirm clientside yapilabilir
+            'mobile' => ['digits:10']
+        ];
+
         $data = $request->only(array_keys($this->rules));
         try {
-            $this->validateRequest($data);
+            $this->validateRequest($data, ['password','account_code']);
             $this->storage->create($data);
+            return response()->json([
+                'success' => true,
+                'message' => [
+                    'general' => trans('account.signup.success')
+                ]
+            ]);
         }
         catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
