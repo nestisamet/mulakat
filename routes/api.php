@@ -16,3 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/**
+ * authentication gerektirmeyen endpointler
+ */
+Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
+    Route::post('signup', 'SignupController@create');
+});
+
+
+/**
+ * authentication gerektiren endpointler
+ */
