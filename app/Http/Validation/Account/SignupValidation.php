@@ -25,11 +25,11 @@ trait SignupValidation
      * (ebeveyn) uyelik kodunu isaret eden bir ogrenci var mi diye bakiyoruz
      * @param $val
      */
-    public function _account_code($val)
-    {
-        if (is_null($this->storageStudent->getItemByAttr('parent_account_code', $val)))
-        {
-            $this->errors['account_code'][] = trans('account.signup.notExistsCode');
-        }
-    }
+//    public function _account_code($val)
+//    {
+//        if (is_null($this->storageStudent->getItemByAttr('parent_account_code', $val)))
+//        {
+//            $this->errors['account_code'][] = trans('account.signup.notExistsCode');
+//        }
+//    }
 }

@@ -20,6 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /**
  * authentication gerektirmeyen endpointler
  */
+Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function () {
+    Route::post('signin', 'AuthController@signin');
+    Route::delete('signout', 'AuthController@signout');
+});
 Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
     Route::post('signup', 'SignupController@create');
 });
@@ -28,3 +32,8 @@ Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
 /**
  * authentication gerektiren endpointler
  */
+Route::group(['middleware' => ['jwt-auth']], function() {
+    Route::get('test', function () {
+        return response()->json(['everything' => 'is cool']);
+    });
+});

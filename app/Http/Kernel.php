@@ -60,6 +60,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'throttle' => '\App\Http\Middleware\ResolveThrottles',
+        'jwt-auth' => '\App\Http\Middleware\AuthJWT',
+        'jwt-refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
     ];
 
     /**
@@ -77,5 +80,8 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
+//        \App\Http\Middleware\ResolveThrottles::class,
+//        \App\Http\Middleware\AuthJWT::class,
+//        \Tymon\JWTAuth\Middleware\RefreshToken::class,
     ];
 }

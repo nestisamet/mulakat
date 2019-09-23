@@ -56,7 +56,7 @@ class SignupController extends Controller
 
         $data = $request->only(array_keys($this->rules));
         try {
-            $this->validateRequest($data, ['password','account_code']);
+            $this->validateRequest($data, ['password']); // ,'account_code'
             $this->storage->create($data);
             return response()->json([
                 'success' => true,
