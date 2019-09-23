@@ -23,6 +23,10 @@ return [
         'success' => 'You have successfully log out.',
     ],
 
+    'token_not_provided' => 'Authorization required',
+    'token_expired' => 'Token expired',
+    'token_invalid' => 'Token invalid',
+
     'attr' => [
         'email' => 'Email',
         'current_password' => 'Current password',

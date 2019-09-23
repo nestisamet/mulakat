@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Validation\Auth\AuthValidation;
 use JWTAuth;
+use App\Http\Resources\Account as AccountResource;
 
 /**
  * Class AuthController
@@ -81,7 +82,7 @@ class AuthController extends Controller
                 'message' => [
                     'general' => [trans('auth.signin.success')]
                 ],
-                'accountInfo' => [] // todo: storage > getAccountInfo()
+                'accountInfo' => new AccountResource(auth()->user())
             ]);
         }
         catch (ApiException $e) {

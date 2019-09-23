@@ -21,19 +21,13 @@ class SignupController extends Controller
     private $storage;
 
     /**
-     * @var StudentRepository
-     */
-    private $storageStudent;
-
-    /**
      * SignupController constructor.
      * @param AccountRepository $storage
      * @param StudentRepository $storageStudent
      */
-    public function __construct(AccountRepository $storage, StudentRepository $storageStudent)
+    public function __construct(AccountRepository $storage)
     {
         $this->storage = $storage;
-        $this->storageStudent = $storageStudent;
     }
 
     /**
