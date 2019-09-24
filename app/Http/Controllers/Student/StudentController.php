@@ -33,7 +33,7 @@ class StudentController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function my(Request $request)
     {
         try {
             /**
@@ -55,7 +55,7 @@ class StudentController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function allItems(Request $request)
+    public function index(Request $request)
     {
         try {
             $this->validateSearch($request);

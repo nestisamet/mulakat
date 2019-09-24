@@ -41,12 +41,9 @@ Route::group(['middleware' => ['jwt-auth']], function() {
         Route::post('changePassword', 'PasswordController@update');
     });
     /**
-     * tum ogrenciler ( ebeveynleri ile birlikte )
-     */
-    Route::get('student/allItems', 'Student\StudentController@allItems');
-    /**
      * yalnizca otorize olan ebeveyne ait ogrenciler
      */
+    Route::get('student/my', 'Student\StudentController@my');
     Route::resource('student', 'Student\StudentController');
     Route::resource('profile', 'Account\ProfileController');
 });
