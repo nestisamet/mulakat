@@ -46,21 +46,40 @@ class StudentEloquent implements StudentRepository
     }
 
     /**
-     * tum cocuklar
-     * @param $parentAccountCode
-     * @return mixed
+     * @param $params limit-offset'lendirme, siralama ve arama parametreleri
+     * ( soyad ve aileHesapKodu a gore filtrelenebilir )
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAll()
+    public function getAll($params)
     {
-        return $this->model->with([
-            /**
-             * aile bireyine dair her anahari sunmak istemeyiz
-             */
+        $items = $this->model->with([
             'parents' => function($q) {
                 $q->select(['account_code','name','surname','mobile','email','created_at']);
             }
-        ])
-        ->get();
+        ]);
+        /**
+         * parametreler
+         */
+        if (isset($params->parent_account_code)) {
+            $items->where('parent_account_code', 'like', "%{$params->parent_account_code}%");
+        }
+        if (isset($params->surname)) {
+            $items->where('surname', 'like', "%{$params->surname}%");
+        }
+        if (isset($params->order)) {
+            $items->orderBy(
+                $params->order,
+                (!isset($params->order_type)) ? 'asc' : $params->order_type
+            );
+        }
+        if (isset($params->offset)) {
+            $items->skip($params->offset);
+        }
+        if (isset($params->limit)) {
+            $items->take($params->limit);
+        }
+
+        return  $items->get();
     }
 
     /**

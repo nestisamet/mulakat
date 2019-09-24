@@ -36,7 +36,10 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         try {
-            $this->validateSearch($request);
+            /**
+             * 1 ailenin sahip oldugu cocuk sayisi cok olmayacagindan arama/limitlendirmeden cayildi
+             */
+            // $this->validateSearch($request);
             $output = new StudentCollection(
                 $this->storage->getItems(auth()->user()->account_code)
             );
@@ -57,7 +60,7 @@ class StudentController extends Controller
         try {
             $this->validateSearch($request);
             $output = new StudentCollection(
-                $this->storage->getAll()
+                $this->storage->getAll($request)
             );
             return response()->json($output);
         }

@@ -95,9 +95,7 @@ class AuthController extends Controller
                 'message' => [
                     'general' => [trans('auth.signin.could_not_create_token')]
                 ],
-            ],
-                500
-            );
+            ], 500);
         }
     }
 
@@ -111,7 +109,7 @@ class AuthController extends Controller
         try {
             $data = $request->only(array_keys($this->rules));
             $this->validateRequest($data);
-            JWTAuth::invalidate();
+            JWTAuth::setToken(explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1])->invalidate();
             /**
              * todo: >> event(new Signout())
              */
@@ -128,10 +126,10 @@ class AuthController extends Controller
         catch (JWTException $e) {
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
-            ],
-                500
-            );
+                'message' => [
+                    'general' => [$e->getMessage()]
+                ],
+            ], 500);
         }
     }
 
