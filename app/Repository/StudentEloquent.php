@@ -35,6 +35,15 @@ class StudentEloquent implements StudentRepository
     }
 
     /**
+     * @param $parentAccountCode
+     * @return mixed
+     */
+    public function getItems($parentAccountCode)
+    {
+        return $this->model->where('parent_account_code', $parentAccountCode)->get();
+    }
+
+    /**
      * @param $id
      * @param $attrs
      */

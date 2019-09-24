@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Student;
 
 use App\Exceptions\ApiException;
+use App\Http\Resources\StudentCollection;
 use App\Http\Validation\Student\StudentValidation;
 use App\Http\Validation\RequestDataValidation;
+use App\Http\Validation\UrlParameterValidation;
 use App\Repository\Contracts\StudentRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Student as StudentResource;
 
 class StudentController extends Controller
 {
     use RequestDataValidation,
+        UrlParameterValidation,
         StudentValidation;
 
     /**
@@ -25,13 +29,21 @@ class StudentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try {
+            $this->validateSearch($request);
+            $output = new StudentCollection(
+                $this->storage->getItems(auth()->user()->account_code)
+            );
+            return response()->json($output);
+        }
+        catch (ApiException $e) {
+            return response()->json($e->getMsg(), $e->getResponseCode());
+        }
     }
 
     /**
