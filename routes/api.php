@@ -37,6 +37,9 @@ Route::group(['middleware' => ['jwt-auth']], function() {
     Route::get('test', function () {
         return response()->json(['everything' => 'is cool']);
     });
+    Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function () {
+        Route::post('changePassword', 'PasswordController@update');
+    });
     Route::resource('student', 'Student\StudentController');
     Route::resource('profile', 'Account\ProfileController');
 });
