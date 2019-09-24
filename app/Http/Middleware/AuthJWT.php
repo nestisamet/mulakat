@@ -67,7 +67,10 @@ class AuthJWT extends Check
                 ],
             ], 404);
         }
-
+        /**
+         * jwt ~ custom tanimlanmis claim i elimize alalim
+         */
+        // app()->setLocale($this->auth->getPayload()->get('foo'));
         return $next($request);
     }
 }

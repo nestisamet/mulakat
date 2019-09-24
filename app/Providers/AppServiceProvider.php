@@ -6,6 +6,7 @@ use App\Repository\AccountEloquent;
 use App\Repository\Contracts\AccountRepository;
 use App\Repository\Contracts\StudentRepository;
 use App\Repository\StudentEloquent;
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(AccountRepository::class, AccountEloquent::class);
         $this->app->singleton(StudentRepository::class, StudentEloquent::class);
+
+        Resource::withoutWrapping();
     }
 }

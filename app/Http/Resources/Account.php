@@ -20,6 +20,7 @@ class Account extends JsonResource
             'name' => $this->name,
             'surname' => $this->surname,
             'email' => $this->email,
+            'mobile' => $this->mobile,
             'account_code' => $this->account_code,
             'created_at' => $this->created_at,
         ];

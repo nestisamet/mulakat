@@ -9,6 +9,7 @@
 namespace App\Repository;
 
 
+use App\Http\Resources\Account;
 use App\Model\Student;
 use App\Repository\Contracts\StudentRepository;
 
@@ -35,12 +36,31 @@ class StudentEloquent implements StudentRepository
     }
 
     /**
+     * belirli bir ailenin cocuklari
      * @param $parentAccountCode
      * @return mixed
      */
     public function getItems($parentAccountCode)
     {
         return $this->model->where('parent_account_code', $parentAccountCode)->get();
+    }
+
+    /**
+     * tum cocuklar
+     * @param $parentAccountCode
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return $this->model->with([
+            /**
+             * aile bireyine dair her anahari sunmak istemeyiz
+             */
+            'parents' => function($q) {
+                $q->select(['account_code','name','surname','mobile','email','created_at']);
+            }
+        ])
+        ->get();
     }
 
     /**

@@ -29,6 +29,7 @@ class StudentController extends Controller
     }
 
     /**
+     * yalnizca otorize olan ebeveynin cocuklari
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -47,12 +48,22 @@ class StudentController extends Controller
     }
 
     /**
+     * tum cocuklar
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create()
+    public function allItems(Request $request)
     {
-
+        try {
+            $this->validateSearch($request);
+            $output = new StudentCollection(
+                $this->storage->getAll()
+            );
+            return response()->json($output);
+        }
+        catch (ApiException $e) {
+            return response()->json($e->getMsg(), $e->getResponseCode());
+        }
     }
 
     /**

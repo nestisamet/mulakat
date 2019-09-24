@@ -40,6 +40,13 @@ Route::group(['middleware' => ['jwt-auth']], function() {
     Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function () {
         Route::post('changePassword', 'PasswordController@update');
     });
+    /**
+     * tum ogrenciler ( ebeveynleri ile birlikte )
+     */
+    Route::get('student/allItems', 'Student\StudentController@allItems');
+    /**
+     * yalnizca otorize olan ebeveyne ait ogrenciler
+     */
     Route::resource('student', 'Student\StudentController');
     Route::resource('profile', 'Account\ProfileController');
 });

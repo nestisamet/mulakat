@@ -64,6 +64,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => $request->password,
             ];
+            // JWTAuth::customClaims(['foo'=>'a', 'bar'=>'b', 'baz'=>'c']);
             if (!($token = JWTAuth::attempt($credentials))) {
                 $this->incrementLoginAttempts($request);
                 throw new ApiException([
