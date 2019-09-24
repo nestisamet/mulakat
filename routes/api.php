@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function () {
     Route::post('signin', 'AuthController@signin');
+    Route::post('refresh', 'AuthController@refresh');
     Route::delete('signout', 'AuthController@signout');
 });
 Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
