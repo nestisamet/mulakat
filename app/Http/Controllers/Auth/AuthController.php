@@ -148,7 +148,8 @@ class AuthController extends Controller
         $data = $request->only(array_keys($this->rules));
         try {
             $this->validateRequest($data, [], 'auth.attr');
-            if (!($token = JWTAuth::refresh($data['token']))) {
+            JWTAuth::setToken($data['token']);
+            if (!($token = JWTAuth::refresh())) {
                 throw new ApiException([
                     'success' => false,
                     'message' => [
