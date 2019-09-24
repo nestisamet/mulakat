@@ -37,4 +37,5 @@ Route::group(['middleware' => ['jwt-auth']], function() {
         return response()->json(['everything' => 'is cool']);
     });
     Route::resource('student', 'Student\StudentController');
+    Route::resource('profile', 'Account\ProfileController');
 });

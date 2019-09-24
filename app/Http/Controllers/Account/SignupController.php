@@ -23,7 +23,6 @@ class SignupController extends Controller
     /**
      * SignupController constructor.
      * @param AccountRepository $storage
-     * @param StudentRepository $storageStudent
      */
     public function __construct(AccountRepository $storage)
     {
