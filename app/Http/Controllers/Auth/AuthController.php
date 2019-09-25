@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\Auth\Signout;
 use App\Events\Auth\ValidAuth;
+use App\Events\Auth\ValidAuthentication;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Validation\Data;
@@ -74,9 +75,7 @@ class AuthController extends Controller
                     ]
                 ], 401);
             }
-            /**
-             * todo: >> event(new GecerliKimlikDogrulama());
-             */
+            event(new ValidAuthentication($token));
             return response()->json([
                 'success' => true,
                 'token' => $token,

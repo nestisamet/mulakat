@@ -48,6 +48,6 @@ class AccountEloquent implements AccountRepository
      */
     public function create($attrs)
     {
-        $this->model->create($attrs);
+        return $this->model->create($attrs);
     }
 }

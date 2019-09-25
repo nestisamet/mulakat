@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Events\Student\StudentCreated;
 use App\Exceptions\ApiException;
 use App\Http\Resources\StudentCollection;
 use App\Http\Validation\Student\StudentValidation;
@@ -88,7 +89,8 @@ class StudentController extends Controller
         $data['status'] = 1;
         try {
             $this->validateRequest($data, ['idendity_no']);
-            $this->storage->create($data);
+            $itemStudent = $this->storage->create($data);
+            event(new StudentCreated($itemStudent));
             return response()->json([
                 'success' => true,
                 'message' => [

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Events\Auth\Registered;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Validation\Account\SignupValidation;
 use App\Http\Validation\RequestDataValidation;
+use App\Notifications\AccountCreated;
 use App\Repository\Contracts\AccountRepository;
-use App\Repository\Contracts\StudentRepository;
 use Illuminate\Http\Request;
 use Validator;
+use Notification;
 
 class SignupController extends Controller
 {
@@ -50,7 +52,8 @@ class SignupController extends Controller
         $data = $request->only(array_keys($this->rules));
         try {
             $this->validateRequest($data, ['password']); // ,'account_code'
-            $this->storage->create($data);
+            $this->storage->create($data)
+                          ->notify(new AccountCreated());
             return response()->json([
                 'success' => true,
                 'message' => [
