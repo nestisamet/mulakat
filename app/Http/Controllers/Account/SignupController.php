@@ -45,13 +45,16 @@ class SignupController extends Controller
             'name' => ['required', 'string', 'max:20'],
             'surname' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:tblAccount'],
-            'password' => ['required', 'string', 'min:8'], // parola konfirm clientside yapilabilir
+            'password' => [
+                'required', 'string', 'min:8',
+                'regex: /((?=.*\d)(?=.*[a-zığüşöç])(?=.*[A-ZĞÜŞİÖÇ]).{8,})/'
+            ],
             'mobile' => ['digits:10']
         ];
 
         $data = $request->only(array_keys($this->rules));
         try {
-            $this->validateRequest($data, ['password']); // ,'account_code'
+            $this->validateRequest($data, ['password'], [], ['password.regex' => trans('passwords.strength')]);
             $this->storage->create($data)
                           ->notify(new AccountCreated());
             return response()->json([

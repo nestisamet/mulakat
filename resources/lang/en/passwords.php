@@ -18,4 +18,5 @@ return [
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that e-mail address.",
     'currentPass' => 'Current password is invalid',
+    'strength' => 'Password must have at least one uppercase letter, at least one lowercase letter and at least one number.'
 ];

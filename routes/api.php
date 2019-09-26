@@ -44,6 +44,9 @@ Route::group(['middleware' => ['jwt-auth']], function() {
      * yalnizca otorize olan ebeveyne ait ogrenciler
      */
     Route::get('student/my', 'Student\StudentController@my');
+    /**
+     * tum ogrenciler
+     */
     Route::resource('student', 'Student\StudentController');
     Route::resource('profile', 'Account\ProfileController');
 });
