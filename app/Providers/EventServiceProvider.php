@@ -24,7 +24,7 @@ class EventServiceProvider extends ServiceProvider
          * event: ogrenci yaratma
          */
         \App\Events\Student\StudentCreated::class => [
-            'App\Listeners\Auth\ListenerStudentCreated',
+            'App\Listeners\Student\ListenerStudentCreated',
         ],
     ];
 

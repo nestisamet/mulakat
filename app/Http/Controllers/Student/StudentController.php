@@ -80,7 +80,7 @@ class StudentController extends Controller
         $this->rules = [
             // 'parent_account_code' => ['required', 'digits:6'],
             'name' => ['required', 'string', 'max:20'],
-            'idendity_no' => ['required', 'string', 'digits:11'],
+            'idendity_no' => ['required', 'string', 'digits:11', 'unique:tblStudent'],
             'surname' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:tblStudent'],
         ];

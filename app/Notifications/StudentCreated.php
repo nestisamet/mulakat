@@ -43,9 +43,12 @@ class StudentCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line($notifiable->getFullName())
-                    ->line(trans('Student').': '.$this->student->getFullName())
-                    ->line(trans('account.signup.success'))
+                    // ->line($notifiable->getFullName())
+                    ->line(trans('Your student created successfully'))
+                    ->line(trans('Details').':')
+                    ->line(trans('Name').': '.$this->student->getFullName())
+                    ->line(trans('Identity').': '.$this->student->idendity_no)
+                    ->line(trans('Email').': '.$this->student->email)
                     ->action(trans('msg.visit_us'), url('/'))
                     ->line('Thank you for using our application!');
     }

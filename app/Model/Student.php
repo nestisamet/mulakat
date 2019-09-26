@@ -14,4 +14,9 @@ class Student extends Model
     {
         return $this->hasMany('App\Model\Account', 'account_code', 'parent_account_code');
     }
+
+    public function getFullName()
+    {
+        return "{$this->name} {$this->surname}";
+    }
 }
