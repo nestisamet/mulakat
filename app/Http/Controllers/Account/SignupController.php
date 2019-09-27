@@ -54,7 +54,7 @@ class SignupController extends Controller
 
         $data = $request->only(array_keys($this->rules));
         try {
-            $this->validateRequest($data, ['password'], [], ['password.regex' => trans('passwords.strength')]);
+            $this->validateRequest($data, ['password'], 'auth.attr', ['password.regex' => trans('passwords.strength')]);
             $this->storage->create($data)
                           ->notify(new AccountCreated());
             return response()->json([

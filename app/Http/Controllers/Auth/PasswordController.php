@@ -35,13 +35,16 @@ class PasswordController extends Controller
     {
         $this->rules = [
             'current_password' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => [
+                'required', 'string', 'min:8', 'confirmed',
+                'regex: /((?=.*\d)(?=.*[a-zığüşöç])(?=.*[A-ZĞÜŞİÖÇ]).{8,})/'
+            ],
             'password_confirmation' => ['required', 'string', 'min:8']
         ];
 
         $data = $request->only(array_keys($this->rules));
         try {
-            $this->validateRequest($data, ['current_password'], 'auth.attr');
+            $this->validateRequest($data, ['current_password'], 'auth.attr', ['password.regex' => trans('passwords.strength')]);
 
             $this->storage->update(auth()->user()->id, [
                 'password' => bcrypt($data['password'])
