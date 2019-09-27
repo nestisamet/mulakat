@@ -23,7 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function () {
     Route::post('signin', 'AuthController@signin');
     Route::post('refresh', 'AuthController@refresh');
-    Route::delete('signout', 'AuthController@signout');
 });
 Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
     Route::post('signup', 'SignupController@create');
@@ -38,6 +37,7 @@ Route::group(['middleware' => ['jwt-auth']], function() {
         return response()->json(['everything' => 'is cool']);
     });
     Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function () {
+        Route::delete('signout', 'AuthController@signout');
         Route::post('changePassword', 'PasswordController@update');
     });
     /**
@@ -48,5 +48,7 @@ Route::group(['middleware' => ['jwt-auth']], function() {
      * tum ogrenciler
      */
     Route::resource('student', 'Student\StudentController');
-    Route::resource('profile', 'Account\ProfileController');
+    Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
+        Route::resource('profile', 'ProfileController');
+    });
 });

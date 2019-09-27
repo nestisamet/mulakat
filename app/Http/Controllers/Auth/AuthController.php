@@ -108,7 +108,8 @@ class AuthController extends Controller
         try {
             $data = $request->only(array_keys($this->rules));
             $this->validateRequest($data);
-            JWTAuth::setToken(explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1])->invalidate();
+            if (isset($_SERVER['HTTP_AUTHORIZATION']))
+                JWTAuth::setToken(explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1])->invalidate();
             /**
              * todo: >> event(new Signout())
              */

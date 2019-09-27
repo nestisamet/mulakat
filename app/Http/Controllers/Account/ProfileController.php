@@ -39,8 +39,9 @@ class ProfileController extends Controller
     protected function store(Request $request)
     {
         $this->rules = [
-            'name' => ['required', 'string', 'max:20'],
-            'surname' => ['required', 'string', 'max:50']
+            'name' => ['string', 'max:20'],
+            'surname' => ['string', 'max:50'],
+            'mobile' => ['digits:10']
         ];
 
         $data = $request->only(array_keys($this->rules));
