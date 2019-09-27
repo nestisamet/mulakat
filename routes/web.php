@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('ui');
+    // return view('ui');
+    return redirect('https://app.swaggerhub.com/apis-docs/nestisamet/mulakatAPI/1.0.0');
 });
