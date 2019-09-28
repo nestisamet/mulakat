@@ -16,7 +16,7 @@ trait SignupValidation
      * parolanin hashli halini sakliyoruz
      * @param $val
      */
-    public function _password(& $val)
+    public function password(& $val)
     {
         $val = Hash::make($val);
     }
@@ -25,7 +25,7 @@ trait SignupValidation
      * (ebeveyn) uyelik kodunu isaret eden bir ogrenci var mi diye bakiyoruz
      * @param $val
      */
-//    public function _account_code($val)
+//    public function accountCode($val)
 //    {
 //        if (is_null($this->storageStudent->getItemByAttr('parent_account_code', $val)))
 //        {

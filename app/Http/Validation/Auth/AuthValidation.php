@@ -7,7 +7,7 @@ trait AuthValidation
     /**
      * @param $val
      */
-    public function _password(& $val)
+    public function password(& $val)
     {
         $val = Hash::make($val);
     }

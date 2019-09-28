@@ -2,7 +2,6 @@
 
 namespace App\Events\Student;
 
-
 use Illuminate\Queue\SerializesModels;
 
 class StudentCreated

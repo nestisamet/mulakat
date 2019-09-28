@@ -54,8 +54,7 @@ class ProfileController extends Controller
                     'general' => trans('account.profile.updated')
                 ]
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
         }
     }

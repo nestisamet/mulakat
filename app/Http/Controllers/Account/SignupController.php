@@ -63,8 +63,7 @@ class SignupController extends Controller
                     'general' => trans('account.signup.success')
                 ]
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
         }
     }

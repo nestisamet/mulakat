@@ -32,7 +32,7 @@ Route::group(['prefix'=>'account', 'namespace'=>'Account'], function () {
 /**
  * authentication gerektiren endpointler
  */
-Route::group(['middleware' => ['jwt-auth']], function() {
+Route::group(['middleware' => ['jwt-auth']], function () {
     Route::get('test', function () {
         return response()->json(['everything' => 'is cool']);
     });

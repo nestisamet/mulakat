@@ -8,7 +8,6 @@
 
 namespace App\Repository;
 
-
 use App\Http\Resources\Account;
 use App\Model\Student;
 use App\Repository\Contracts\StudentRepository;
@@ -53,7 +52,7 @@ class StudentEloquent implements StudentRepository
     public function getAll($params)
     {
         $items = $this->model->with([
-            'parents' => function($q) {
+            'parents' => function ($q) {
                 $q->select(['account_code','name','surname','mobile','email','created_at']);
             }
         ]);

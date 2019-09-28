@@ -45,8 +45,7 @@ class StudentController extends Controller
                 $this->storage->getItems(auth()->user()->account_code)
             );
             return response()->json($output);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
         }
     }
@@ -64,8 +63,7 @@ class StudentController extends Controller
                 $this->storage->getAll($request)
             );
             return response()->json($output);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
         }
     }
@@ -97,8 +95,7 @@ class StudentController extends Controller
                     'general' => trans('msg.item_created')
                 ]
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
         }
     }

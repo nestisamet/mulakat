@@ -9,7 +9,7 @@ trait PasswordValidation
     /**
      * @param $val
      */
-    public function _current_password($val)
+    public function currentPassword($val)
     {
         if (!Hash::check($val, auth()->user()->password)) {
             $this->errors['current_password'][] = trans('passwords.currentPass');

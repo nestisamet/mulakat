@@ -84,11 +84,9 @@ class AuthController extends Controller
                 ],
                 'accountInfo' => new AccountResource(auth()->user())
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
-        }
-        catch (JWTException $e) {
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'message' => [
@@ -108,8 +106,9 @@ class AuthController extends Controller
         try {
             $data = $request->only(array_keys($this->rules));
             $this->validateRequest($data);
-            if (isset($_SERVER['HTTP_AUTHORIZATION']))
+            if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
                 JWTAuth::setToken(explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1])->invalidate();
+            }
             /**
              * todo: >> event(new Signout())
              */
@@ -119,11 +118,9 @@ class AuthController extends Controller
                     'general' => [trans('auth.signout.success')]
                 ],
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
-        }
-        catch (JWTException $e) {
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'message' => [
@@ -160,17 +157,16 @@ class AuthController extends Controller
                 'success' => true,
                 'token' => $token
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
-        }
-        catch (JWTException $e) {
-            return response()->json([
+        } catch (JWTException $e) {
+            return response()->json(
+                [
                 'success' => false,
                 'message' => [
                     'general' => [trans('auth.token_invalid')]
                 ]
-            ],
+                ],
                 500
             );
         }
@@ -183,5 +179,4 @@ class AuthController extends Controller
     {
         return 'email';
     }
-
 }

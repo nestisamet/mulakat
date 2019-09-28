@@ -27,32 +27,27 @@ class AuthJWT extends Check
                 'message' => [
                     'general' => [trans('auth.token_not_provided')]
                 ],
-            ],400
-            );
+            ], 400);
         }
 
         try {
             $user = $this->auth->authenticate($token);
-        }
-        catch (TokenExpiredException $e) {
+        } catch (TokenExpiredException $e) {
             return response()->json([
                 'success' => false,
                 'code' => '1.0.1',
                 'message' => [
                     'general' => [trans('auth.token_expired')]
                 ],
-            ], 401
-            );
-        }
-        catch (JWTException $e) {
+            ], 401);
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'code' => '1.0.2',
                 'message' => [
                     'general' => [trans('auth.token_invalid')]
                 ],
-            ], 401
-            );
+            ], 401);
         }
 
         if (!$user) {

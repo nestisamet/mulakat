@@ -18,10 +18,10 @@ use Illuminate\Support\Str;
 
 $factory->define(Student::class, function (Faker $faker) {
     return [
-        'parent_account_code' => $faker->numberBetween(100000,999999),
+        'parent_account_code' => $faker->numberBetween(100000, 999999),
         'email' => $faker->unique()->safeEmail,
         'name' => $faker->firstName,
         'surname' => $faker->lastName,
-        'idendity_no' => $faker->unique()->numberBetween(10000000000,99999999999),
+        'idendity_no' => $faker->unique()->numberBetween(10000000000, 99999999999),
     ];
 });

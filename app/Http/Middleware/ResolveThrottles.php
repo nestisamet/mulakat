@@ -28,8 +28,7 @@ class ResolveThrottles extends ThrottleRequests
                 'message' => [
                     'general' => [trans('msg.too_many_requests')]
                 ],
-            ],406
-            );
+            ], 406);
         }
 
         $this->limiter->hit($key, $decayMinutes);

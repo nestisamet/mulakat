@@ -8,8 +8,8 @@
 
 namespace App\Http\Validation;
 
-
 use App\Exceptions\ApiException;
+use App\Http\Helper\Str;
 use Validator;
 
 trait RequestDataValidation
@@ -61,8 +61,8 @@ trait RequestDataValidation
         }
         $this->throwExc();
         if (sizeof($keys)) {
-            foreach($keys as $key) {
-                $method = "_$key";
+            foreach ($keys as $key) {
+                $method = Str::underscoreToCamelCase($key);
                 if (method_exists($this, $method)) {
                     /**
                      * uzayan validation bloklari yerine dogrulanacak field a ozel metot yazmayi tercih ettik

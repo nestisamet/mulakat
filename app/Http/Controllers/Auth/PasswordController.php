@@ -44,7 +44,12 @@ class PasswordController extends Controller
 
         $data = $request->only(array_keys($this->rules));
         try {
-            $this->validateRequest($data, ['current_password'], 'auth.attr', ['password.regex' => trans('passwords.strength')]);
+            $this->validateRequest(
+                $data,
+                ['current_password'],
+                'auth.attr',
+                ['password.regex' => trans('passwords.strength')]
+            );
 
             $this->storage->update(auth()->user()->id, [
                 'password' => bcrypt($data['password'])
@@ -55,8 +60,7 @@ class PasswordController extends Controller
                     'general' => trans('passwords.reset')
                 ]
             ]);
-        }
-        catch (ApiException $e) {
+        } catch (ApiException $e) {
             return response()->json($e->getMsg(), $e->getResponseCode());
         }
     }

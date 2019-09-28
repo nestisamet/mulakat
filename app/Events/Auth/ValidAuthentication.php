@@ -2,7 +2,6 @@
 
 namespace App\Events\Auth;
 
-
 use Illuminate\Queue\SerializesModels;
 
 class ValidAuthentication
